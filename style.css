@@ -1,0 +1,1338 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    padding-top: 70px; /* Mencegah konten tertutup navbar fixed */
+}
+
+/* --- BRANDING NAVBAR --- */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    height: 70px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+/* Logo Foto */
+.nav-logo {
+    height: 80px;
+    width: 100px;
+}
+
+.nav-logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+/* Menu List (Tampilan Desktop) */
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 28px;
+    height: 100%;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+}
+
+.menu-item:hover, .menu-item.active {
+    color: #00529b; /* Identitas Biru BYD */
+}
+
+/* --- SYSTEM DROPDOWN DESKTOP --- */
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.dropdown-container {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%) translateY(15px);
+    background-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    list-style: none;
+    min-width: 200px;
+    border-radius: 8px;
+    padding: 12px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.dropdown-container li a {
+    display: block;
+    padding: 10px 24px;
+    text-decoration: none;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 400;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-container li a:hover {
+    background-color: #f5f8ff;
+    color: #00529b;
+}
+
+/* Hover effect dropdown khusus desktop */
+@media (min-width: 992px) {
+    .dropdown:hover .dropdown-container {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Tombol WhatsApp */
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #25D366;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebe57;
+    transform: translateY(-1px);
+}
+
+/* --- BURGER MENU COMPONENT --- */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 19px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+.burger-menu .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #1a1a1a;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* --- ANIMASI BURGER KE SILANG (X) --- */
+.burger-menu.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.burger-menu.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- RESPONSIVE MOBILE SCRIPT (Max 991px) --- */
+@media (max-width: 991px) {
+    .burger-menu {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background-color: #ffffff;
+        box-shadow: -6px 0 20px rgba(0,0,0,0.05);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+        padding: 90px 24px 30px 24px;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        overflow-y: auto;
+    }
+
+    .nav-links.show {
+        right: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .menu-item {
+        padding: 16px 0;
+        width: 100%;
+        border-bottom: 1px solid #f0f2f5;
+        justify-content: space-between;
+        height: auto;
+    }
+
+    /* Dropdown di Mobile */
+    .dropdown {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+
+    .dropdown-container {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        width: 100%;
+        max-height: 0; /* Untuk animasi slide down */
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        padding: 0;
+        background-color: #f8fafc;
+        transition: max-height 0.3s ease, opacity 0.2s ease;
+    }
+
+    .dropdown-container.expand {
+        max-height: 400px; /* Batas tinggi konten saat terbuka */
+        opacity: 1;
+        visibility: visible;
+        padding: 8px 0;
+        margin-bottom: 10px;
+    }
+
+    .icon-arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .icon-arrow.rotate {
+        transform: rotate(180deg);
+    }
+
+    .nav-wa-wrapper {
+        margin-top: 30px;
+        border: none !important;
+    }
+
+    .btn-whatsapp {
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+    }
+}
+
+
+/* --- HERO IMAGE SLIDER --- */
+.hero-slider-section {
+    position: relative;
+    width: 100%;
+    /* Tinggi dinamis: Mengurangi tinggi navbar (70px) agar pas di satu layar penuh */
+    height: calc(100vh - 70px); 
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    /* Efek transisi perpindahan gambar memudar (fade) selama 1 detik */
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    /* Menjaga proporsi gambar mobil tetap presisi dan tidak gepeng */
+    object-fit: cover; 
+    object-position: center;
+}
+
+/* --- INDIKATOR TITIK (DOTS) --- */
+.slider-dots {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #ffffff;
+    width: 24px; /* Membuat titik aktif berbentuk lonjong minimalis */
+    border-radius: 4px;
+}
+
+/* --- RESPONSIVE UNTUK MOBILE --- */
+@media (max-width: 768px) {
+    .hero-slider-section {
+        /* Mengubah rasio tinggi di HP agar tampilan objek mobil tidak terpotong terlalu ekstrim */
+        height: 60vh; 
+    }
+}
+
+
+
+.seal {
+    padding: 60px 24px;
+    background-color: #ffffff;
+}
+
+.product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Membagi halaman menjadi 2 kolom seimbang */
+    gap: 50px;
+    align-items: start;
+}
+
+/* --- KOLOM FOTO --- */
+.product-gallery {
+    position: sticky;
+    top: 100px; /* Foto tetap di posisi saat info di kanan di-scroll down */
+}
+
+.image-wrapper {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    background-color: #f8fafc;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.03); /* Efek zoom tipis saat foto didekati pointer */
+}
+
+/* --- KOLOM INFORMASI --- */
+.product-badge {
+    display: inline-block;
+    background-color: #e6f0fa;
+    color: #00529b;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.product-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.product-tagline {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    border-left: 4px solid #00529b;
+    padding-left: 10px;
+}
+
+/* Ringkasan Grid Spek */
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.spec-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.spec-icon {
+    color: #00529b;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.spec-label {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.spec-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Tabel Spesifikasi */
+.specs-table-wrapper {
+    margin-bottom: 35px;
+}
+
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.specs-table tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.specs-table td {
+    padding: 12px 6px;
+    font-size: 14px;
+}
+
+.specs-table td:nth-child(1) {
+    color: #64748b;
+    font-weight: 500;
+    width: 40%;
+}
+
+.specs-table td:nth-child(2) {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* Daftar Fitur */
+.features-wrapper {
+    margin-bottom: 40px;
+}
+
+.features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.features-list li {
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.features-list li i {
+    color: #25d366;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+/* Tombol Aksi */
+.action-buttons {
+    width: 100%;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #00529b;
+    color: #ffffff;
+    text-decoration: none;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 82, 155, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #003d73;
+}
+
+/* --- RESPONSIVE MOBILE TAMPILAN (Max 768px) --- */
+@media (max-width: 768px) {
+    .product-container {
+        grid-template-columns: 1fr; /* Menumpuk menjadi 1 kolom penuh kebawah */
+        gap: 30px;
+    }
+
+    .product-gallery {
+        position: relative;
+        top: 0;
+    }
+
+    .product-title {
+        font-size: 32px;
+    }
+
+    .specs-grid {
+        grid-template-columns: 1fr 1fr; /* Tetap grid 2 kolom di mobile */
+    }
+}
+
+
+/* Latar belakang selang-seling abu-abu tipis agar web tampak dinamis saat di-scroll */
+.sealion7 {
+    background-color: #f8fafc;
+}
+
+/* Penyesuaian Warna Badge SUV */
+.SUV-badge {
+    background-color: #fef3c7; /* Warna latar kekuningan soft */
+    color: #d97706; /* Warna teks oranye gelap/amber */
+}
+
+/* Efek Sticky Gallery Berjalan Selaras pada Background Berbeda */
+.sealion7 .image-wrapper {
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Mengatur Transisi Hover Tombol Khusus Sealion 7 jika Ingin Pembeda */
+.SUV-btn {
+    background-color: #0b2f61; /* Warna navy lebih gelap untuk tema SUV tangguh */
+}
+
+.SUV-btn:hover {
+    background-color: #051833;
+}
+
+/* Memastikan Sinkronisasi Warna Ikon Ceklis Fitur */
+.sealion7 .features-list li i {
+    color: #10b981; /* Hijau emerald modern */
+}
+
+/* Memastikan Tabel Mengikuti Skema Latar Belakang Alternatif */
+.sealion7 .specs-table tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.atto1 {
+    background-color: #f0fdf4; /* Latar belakang hijau mint yang lembut */
+    color: #16a34a; /* Teks hijau ramah lingkungan/eco-friendly */
+}
+
+/* Mengatur Warna Tombol Aksi Khusus Atto 1 (Tema Eco/Urban Bright) */
+.urban-btn {
+    background-color: #0d9488; /* Warna teal modern yang mencerminkan mobil perkotaan ramah lingkungan */
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+}
+
+.urban-btn:hover {
+    background-color: #0f766e;
+}
+
+/* Penyesuaian Hover Khusus Gambar Atto 1 */
+#produk-atto1 .image-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+}
+
+
+.SmartSUV-badge {
+    background-color: #f0f4ff; /* Latar belakang biru muda yang cerah */
+    color: #2563eb; /* Teks biru teknologi canggih */
+}
+
+/* Mengatur Warna Tombol Aksi Khusus Atto 3 (Tema Premium & Smart) */
+.smart-suv-btn {
+    background-color: #1e3a8a; /* Warna biru royal pekat yang melambangkan kemewahan keluarga */
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.smart-suv-btn:hover {
+    background-color: #172554;
+}
+
+.MPV-badge {
+    background-color: #faf5ff; /* Latar belakang ungu/violet ultra soft */
+    color: #7c3aed; /* Teks violet cerah yang melambangkan kemewahan akomodatif */
+}
+
+/* Mengatur Warna Tombol Aksi Khusus M6 DM (Tema Family & Endurance) */
+.mpv-btn {
+    background-color: #4c1d95; /* Warna ungu gelap/deep violet maskulin dan elegan */
+    box-shadow: 0 4px 12px rgba(76, 29, 149, 0.2);
+}
+
+.mpv-btn:hover {
+    background-color: #2e1065;
+}
+
+/* Memastikan visual transisi gambar di desktop konsisten */
+#produk-m6dm .image-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+}
+
+.Hatchback-badge {
+    background-color: #f0fdfa; /* Latar belakang hijau toska / cyan muda yang fresh */
+    color: #0d9488; /* Teks toska tua yang mencerminkan tema samudra/ocean */
+}
+
+/* Mengatur Warna Tombol Aksi Khusus Dolphin (Tema Energetik & Modern) */
+.hatchback-btn {
+    background-color: #0891b2; /* Warna biru cyan/ocean cerah yang melambangkan kelincahan lumba-lumba */
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2);
+}
+
+.hatchback-btn:hover {
+    background-color: #0e7490;
+}
+
+/* Memastikan visual grid dan list selaras di latar belakang abu-abu */
+#produk-dolphin .spec-card {
+    background-color: #ffffff; /* Mengubah warna kartu agar kontras dengan bg abu-abu */
+}
+
+.M6EV-badge {
+    background-color: #ecfeff; /* Latar belakang biru muda/cyan ultra soft */
+    color: #0891b2; /* Teks cyan gelap yang melambangkan elektrifikasi murni yang bersih */
+}
+
+/* Mengatur Warna Tombol Aksi Khusus M6 EV (Tema Modern Blue Eco) */
+.m6ev-btn {
+    background-color: #0284c7; /* Warna biru langit elektrik cerah khas mobil ramah lingkungan global */
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+}
+
+.m6ev-btn:hover {
+    background-color: #0369a1;
+}
+
+/* Memastikan visual transisi gambar di desktop tetap konsisten */
+#produk-m6ev .image-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+}
+
+.luxury-badge {
+    background-color: #fef3c7; /* Latar belakang emas/amber sangat lembut */
+    color: #b45309; /* Teks emas gelap/amber premium */
+    border: 1px solid #fde68a;
+}
+
+/* Mengubah Warna Subtitle Sisi Kiri */
+.luxury-subtitle {
+    border-left: 4px solid #b45309 !important;
+}
+
+/* Ikon Kotak Performa Berwarna Emas */
+.luxury-icon {
+    color: #b45309 !important;
+}
+
+/* Mengubah Warna Ikon Ceklis Fitur Menjadi Emas Gelap */
+.features-list li i.luxury-check {
+    color: #d97706;
+}
+
+/* Bingkai Premium Untuk Galeri Foto Denza */
+.luxury-wrapper {
+    border: 2px solid #fde68a;
+    box-shadow: 0 15px 35px rgba(180, 83, 9, 0.05) !important;
+}
+
+/* Tombol Aksi Eksklusif Berwarna Hitam Gold Premium */
+.luxury-btn {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); /* Gradasi biru malam/hitam mewah */
+    color: #fde68a !important; /* Teks warna emas muda */
+    border: 1px solid #d97706;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.3);
+}
+
+.luxury-btn:hover {
+    background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+    box-shadow: 0 4px 20px rgba(217, 119, 6, 0.2);
+}
+
+.credit-section {
+    padding: 80px 24px;
+    background-color: #f8fafc;
+}
+
+.credit-container {
+    max-width: 600px; /* Ukuran form ideal di tengah halaman */
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.credit-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.credit-badge {
+    display: inline-block;
+    background-color: #e6f0fa;
+    color: #00529b;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.credit-header h2 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.credit-header p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Form Layout */
+.credit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+/* Wrapper Input dengan Ikon */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.currency-prefix {
+    position: absolute;
+    left: 14px;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+/* Style Input, Select Box */
+.credit-form input[type="text"],
+.credit-form input[type="number"],
+.credit-form select {
+    width: 100%;
+    padding: 14px 14px 14px 42px; /* Ruang di kiri sengaja dikosongkan untuk ikon/prefix */
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0f172a;
+    background-color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.credit-form input:focus,
+.credit-form select:focus {
+    border-color: #00529b;
+    box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.15);
+}
+
+/* Tombol Kirim Kirim Simulasi WA */
+.btn-submit-credit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #25D366;
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+    margin-top: 10px;
+}
+
+.btn-submit-credit:hover {
+    background-color: #1ebe57;
+    transform: translateY(-1px);
+}
+
+.btn-submit-credit:active {
+    transform: translateY(0);
+}
+
+/* --- TAMPILAN MOBILE --- */
+@media (max-width: 768px) {
+    .credit-container {
+        padding: 24px;
+    }
+
+    .credit-header h2 {
+        font-size: 24px;
+    }
+}
+
+
+.trade-section {
+    padding: 80px 24px;
+    background-color: #ffffff; /* Bergantian warna latar belakang dengan simulasi kredit */
+}
+
+.trade-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+}
+
+.trade-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.trade-badge {
+    display: inline-block;
+    background-color: #fef3c7; /* Aksen warna warm amber */
+    color: #d97706;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.trade-header h2 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.trade-header p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Form Layout System (Mendukung Global Form Field) */
+.trade-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Tombol Submit Kirim Trade In WA (Aksen Navy/Biru Gelap Premium) */
+.btn-submit-trade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #00529b;
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 82, 155, 0.15);
+    margin-top: 10px;
+}
+
+.btn-submit-trade:hover {
+    background-color: #003d73;
+    transform: translateY(-1px);
+}
+
+.btn-submit-trade:active {
+    transform: translateY(0);
+}
+
+/* Re-use input styling dari global styles */
+.trade-form input[type="text"],
+.trade-form input[type="number"],
+.trade-form select {
+    width: 100%;
+    padding: 14px 14px 14px 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0f172a;
+    background-color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.trade-form input:focus,
+.trade-form select:focus {
+    border-color: #00529b;
+    box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.15);
+}
+
+/* --- TAMPILAN MOBILE --- */
+@media (max-width: 768px) {
+    .trade-container {
+        padding: 24px;
+    }
+}
+
+
+.test-drive-section {
+    padding: 80px 24px;
+    background-color: #f8fafc; /* Latar belakang selang-seling abu-abu tipis */
+}
+
+.test-drive-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.test-drive-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.test-drive-badge {
+    display: inline-block;
+    background-color: #dcfce7; /* Aksen warna hijau eco soft */
+    color: #16a34a;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.test-drive-header h2 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.test-drive-header p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Form Layout (Menggunakan standarisasi class global form-group & input-wrapper) */
+.test-drive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Tombol Submit Booking Test Drive (Aksen Hijau Eco-Friendly) */
+.btn-submit-td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #16a34a;
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+    margin-top: 10px;
+}
+
+.btn-submit-td:hover {
+    background-color: #15803d;
+    transform: translateY(-1px);
+}
+
+.btn-submit-td:active {
+    transform: translateY(0);
+}
+
+/* Struktur input global re-use */
+.test-drive-form input[type="text"],
+.test-drive-form select {
+    width: 100%;
+    padding: 14px 14px 14px 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0f172a;
+    background-color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.test-drive-form input:focus,
+.test-drive-form select:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+/* --- TAMPILAN MOBILE --- */
+@media (max-width: 768px) {
+    .test-drive-container {
+        padding: 24px;
+    }
+}
+
+
+/* --- SECTION ABOUT ME --- */
+.about-section {
+    position: relative;
+    width: 100%;
+    min-height: 80vh; /* Mengisi 80% tinggi layar desktop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    /* PENGATURAN BACKGROUND FOTO LENGKAP */
+    background-image: url('img/me.jpeg'); /* Ganti dengan URL foto Anda/Showroom */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Efek parallax keren saat di-scroll di desktop */
+    overflow: hidden;
+}
+
+/* Lapisan Hitam Transparan di Atas Foto */
+.about-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 100%);
+    z-index: 1;
+}
+
+/* Kontainer Utama Konten */
+.about-container {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2; /* Menaikkan konten di atas overlay */
+    text-align: center;
+}
+
+.about-content {
+    color: #ffffff;
+}
+
+.about-badge {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fde68a; /* Warna teks emas soft */
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about-content h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.about-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #e2e8f0;
+    margin-bottom: 20px;
+    text-align: justify; /* Supaya teks rapi merata */
+}
+
+/* Grid Fitur Keunggulan */
+.about-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+}
+
+.about-feat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.about-feat-item i {
+    font-size: 24px;
+    color: #fde68a; /* Aksen warna ikon emas */
+}
+
+.about-feat-item span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f1f5f9;
+}
+
+/* --- OPTIMALISASI UNTUK TAMPILAN MOBILE --- */
+@media (max-width: 768px) {
+    .about-section {
+        min-height: auto; /* Membiarkan tinggi mengikuti panjang konten teks di HP */
+        background-attachment: scroll; /* Menonaktifkan fixed background karena tidak didukung baik di beberapa browser HP */
+        background-position: 65% center; /* Menggeser fokus foto sedikit agar objek penting tidak tertutup di layar sempit */
+        padding: 60px 20px;
+    }
+
+    .about-content h2 {
+        font-size: 26px; /* Mengecilkan ukuran judul agar muat satu baris */
+        margin-bottom: 16px;
+    }
+
+    .about-content p {
+        font-size: 14px; /* Mengecilkan ukuran font paragraf */
+        line-height: 1.6;
+        text-align: left; /* Mengubah ke rata kiri agar lebih nyaman dibaca di layar HP */
+    }
+
+    .about-features {
+        grid-template-columns: 1fr; /* Mengubah susunan 3 kolom menjadi 1 kolom vertikal ke bawah */
+        gap: 24px;
+        margin-top: 30px;
+    }
+    
+    .about-feat-item {
+        flex-direction: row; /* Di mobile, ikon dan teks berjejer ke samping, bukan atas-bawah */
+        text-align: left;
+        gap: 15px;
+    }
+    
+    .about-feat-item i {
+        font-size: 20px;
+        min-width: 25px;
+    }
+}
+
+
+
+.main-footer {
+    background-color: #0f172a; /* Warna hitam kebiruan gelap yang mewah */
+    color: #94a3b8;
+    padding: 40px 24px;
+    border-top: 1px solid #1e293b;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Mengizinkan konten turun ke bawah jika layar sempit */
+    gap: 30px;
+}
+
+/* Kolom Branding */
+.footer-brand .footer-logo-text {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.footer-brand .footer-owner {
+    font-size: 14px;
+    color: #e2e8f0;
+    margin-bottom: 6px;
+}
+
+.footer-brand .copyright {
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Kolom Media Sosial */
+.footer-socials h4 {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.social-icons a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #00529b; /* Berubah menjadi biru khas BYD saat diarahkan mouse */
+}
+
+/* Kolom Kredit */
+.footer-credit {
+    text-align: right;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.footer-credit p {
+    margin-bottom: 4px;
+}
+
+.developer-link {
+    color: #fde68a; /* Warna emas soft untuk menonjolkan nama pembuat */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+.developer-link:hover {
+    opacity: 0.8;
+}
+
+/* --- OPTIMALISASI TAMPILAN MOBILE FOOTER --- */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Mengubah susunan baris mendatar menjadi vertikal bertumpuk */
+        text-align: center;
+        gap: 24px;
+    }
+
+    .social-icons {
+        align-items: center; /* Meratakan ikon sosmed di tengah layar HP */
+    }
+
+    .footer-credit {
+        text-align: center; /* Meratakan teks pembuat di tengah layar HP */
+        border-top: 1px solid #1e293b;
+        width: 100%;
+        padding-top: 20px;
+    }
+}
