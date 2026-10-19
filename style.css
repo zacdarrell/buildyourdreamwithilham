@@ -484,7 +484,7 @@ body {
     margin-bottom: 40px;
     text-align: center;
     display: flex;
-    flex-direction: block;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
