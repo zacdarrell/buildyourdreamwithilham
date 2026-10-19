@@ -505,6 +505,11 @@ body {
     color: #25d366;
     font-size: 16px;
     margin-top: 2px;
+    text-align: center;
+}
+
+.features-list strong {
+    text-align: center;
 }
 
 /* Tombol Aksi */
