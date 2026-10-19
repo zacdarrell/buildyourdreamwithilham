@@ -488,10 +488,7 @@ body {
     list-style: none;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 12px;
-    text-align: center;
 }
 
 .features-list li {
@@ -502,6 +499,8 @@ body {
     align-items: flex-start;
     gap: 10px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .features-list li i {
