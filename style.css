@@ -482,6 +482,7 @@ body {
 /* Daftar Fitur */
 .features-wrapper {
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .features-list {
@@ -498,9 +499,6 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 }
 
 .features-list li i {
