@@ -489,6 +489,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    text-align: center;
 }
 
 .features-list li {
